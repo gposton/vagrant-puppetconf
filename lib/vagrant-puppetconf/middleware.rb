@@ -18,7 +18,7 @@ module VagrantPuppetconf
         @env[:vm].channel.sudo("cp /dev/null /etc/puppet/puppet.conf")
       end
       @env[:vm].config.puppetconf.updates.each_pair do |path, value|
-        @env[:vm].channel.execute("echo -e 'set /files/etc/puppet/puppet.conf/#{path} #{value} \n save' | sudo augtool")
+        @env[:vm].channel.execute("echo -e \"set /files/etc/puppet/puppet.conf/#{path} #{value} \n save\" | sudo augtool")
       end
     end
 
