@@ -14,7 +14,7 @@ module VagrantPuppetconf
     end
 
     def update
-      unless update_only
+      unless @env[:vm].config.puppetconf.update_only
         @env[:vm].channel.sudo("cp /dev/null /etc/puppet/puppet.conf")
       end
       @env[:vm].config.puppetconf.updates.each_pair do |path, value|
