@@ -24,7 +24,8 @@ module VagrantPuppetconf
       end
       @env[:vm].channel.execute("echo -e \"#{aug_commands.join("\n")} \n save\" | sudo augtool -b")
       if @env[:vm].channel.execute("ls /etc/puppet/puppet.conf.augsave")
-        @env[:vm].channel.execute('diff /etc/puppet/puppet.conf /etc/puppet/puppet.conf.augsave') do |type, data|
+        @env[:ui].info I18n.t('vagrant.plugins.puppetconf.middleware.puppetconf_diff')
+        @env[:vm].channel.execute('diff -u /etc/puppet/puppet.conf /etc/puppet/puppet.conf.augsave', :error_check => false) do |type, data|
           @env[:ui].success data, :prefix => false
         end
       end
