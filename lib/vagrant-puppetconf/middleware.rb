@@ -8,13 +8,13 @@ module VagrantPuppetconf
     def call(env)
       @env = env
       create_puppet_conf unless puppet_conf_exists?
-      install_augeas upnless augeas_installed?
+      install_augeas unless augeas_installed?
       update
       @app.call env
     end
 
     def update
-      @env[:vm].channel.execute("rm /etc/puppet/puppet.conf.augsave")
+      @env[:vm].channel.sudo("rm -f /etc/puppet/puppet.conf.augsave")
       unless @env[:vm].config.puppetconf.update_only
         @env[:vm].channel.sudo("cp /dev/null /etc/puppet/puppet.conf")
       end
@@ -24,8 +24,8 @@ module VagrantPuppetconf
       end
       @env[:vm].channel.execute("echo -e \"#{aug_commands.join("\n")} \n save\" | sudo augtool -b")
       if @env[:vm].channel.execute("ls /etc/puppet/puppet.conf.augsave")
-        @env[:vm].channel.connect do |conn|
-          @env[:ui].info conn.exec('diff /etc/puppet/puppet.conf /etc/puppet/puppet.conf.augsave')
+        @env[:vm].channel.execute('diff /etc/puppet/puppet.conf /etc/puppet/puppet.conf.augsave') do |type, data|
+          @env[:ui].success data, :prefix => false
         end
       end
     end
