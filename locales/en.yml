@@ -1,0 +1,7 @@
+en:
+  vagrant:
+    plugins:
+      puppetconf:
+        middleware:
+          create_puppetconf: "Creating puppet.conf"
+          install_augeas: "Installing augeas-tools"
