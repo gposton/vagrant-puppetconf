@@ -8,7 +8,7 @@ module VagrantPuppetconf
     def call(env)
       @env = env
       create_puppet_conf unless puppet_conf_exists?
-      install_augeas unless puppet_conf_exists? unless augeas_installed?
+      install_augeas unless augeas_installed?
       update
       @app.call env
     end
