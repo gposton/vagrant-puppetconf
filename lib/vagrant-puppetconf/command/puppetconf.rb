@@ -6,14 +6,18 @@ module VagrantPuppetconf
       def validate(options)
         %w{key value}.each do |opt|
           if options[opt.to_sym].empty?
-            @logger.error "#{opt.upcase} not set"
-            @logger.info "#{@opts}"
+            @ui.error "#{opt.upcase} not set"
+            @ui.info "#{@opts}"
+            exit 1
           end
         end
       end
 
       def execute
-        @opts = OptionParaser.new do |opts|
+        @ui = Vagrant::UI::Colored.new('puppetconf')
+
+        options = {}
+        @opts = OptionParser.new do |opts|
           opts.banner = "Usage: vagrant [vm-name] puppetconf -k config_key -v config_value"
 
           opts.on('-k', '--key CONFIG_KEY', "Config key to update.") do |val|
@@ -25,14 +29,12 @@ module VagrantPuppetconf
           end
         end
 
-        options = {}
-
         vms = parse_options @opts
 
         validate options
 
         with_target_vms(vms) do |vm|
-          Updater.update(vm, {options[:key] => options[:value]})
+          Updater.update(vm, @ui, {options[:key] => options[:value]})
         end
       end
     end

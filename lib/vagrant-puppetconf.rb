@@ -6,7 +6,7 @@ require 'vagrant-puppetconf/middleware'
 require 'vagrant-puppetconf/config'
 
 Vagrant.commands.register(:puppetconf) { VagrantPuppetconf::Command::Puppetconf }
-Vagrant.commands.register(:puppetconf) { VagrantPuppetconf::Command::Puppetenv }
+Vagrant.commands.register(:puppetenv) { VagrantPuppetconf::Command::Puppetenv }
 
 Vagrant.config_keys.register(:puppetconf) { VagrantPuppetconf::Config }
 

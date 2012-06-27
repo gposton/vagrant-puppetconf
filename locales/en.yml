@@ -5,4 +5,6 @@ en:
         middleware:
           create_puppetconf: "Creating puppet.conf"
           install_augeas: "Installing augeas-tools"
+        updater:
           puppetconf_diff: "diff puppet.conf:"
+          puppetconf_nochange: "No change to puppet.conf"
