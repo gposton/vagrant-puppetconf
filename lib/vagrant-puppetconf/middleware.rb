@@ -9,26 +9,8 @@ module VagrantPuppetconf
       @env = env
       create_puppet_conf unless puppet_conf_exists?
       install_augeas unless augeas_installed?
-      update
+      Updater.update(@env[:vm], @env[:vm].config.puppetconf.updates, @env[:vm].config.puppetconf.update_only)
       @app.call env
-    end
-
-    def update
-      @env[:vm].channel.sudo("rm -f /etc/puppet/puppet.conf.augsave")
-      unless @env[:vm].config.puppetconf.update_only
-        @env[:vm].channel.sudo("cp /dev/null /etc/puppet/puppet.conf")
-      end
-      aug_commands = []
-      @env[:vm].config.puppetconf.updates.each_pair do |path, value|
-        aug_commands << "set /files/etc/puppet/puppet.conf/#{path} #{value}"
-      end
-      @env[:vm].channel.execute("echo -e \"#{aug_commands.join("\n")} \n save\" | sudo augtool -b")
-      if @env[:vm].channel.execute("ls /etc/puppet/puppet.conf.augsave")
-        @env[:ui].info I18n.t('vagrant.plugins.puppetconf.middleware.puppetconf_diff')
-        @env[:vm].channel.execute('diff -u /etc/puppet/puppet.conf /etc/puppet/puppet.conf.augsave', :error_check => false) do |type, data|
-          @env[:ui].success data, :prefix => false
-        end
-      end
     end
 
     def puppet_conf_exists?
