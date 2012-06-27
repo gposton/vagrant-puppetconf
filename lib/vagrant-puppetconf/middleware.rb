@@ -9,7 +9,7 @@ module VagrantPuppetconf
       @env = env
       create_puppet_conf unless puppet_conf_exists?
       install_augeas unless augeas_installed?
-      Updater.update(@env[:vm], @logger, @env[:vm].config.puppetconf.updates, @env[:vm].config.puppetconf.update_only)
+      Updater.update(@env[:vm], @env[:ui], @env[:vm].config.puppetconf.updates, @env[:vm].config.puppetconf.update_only)
       @app.call env
     end
 

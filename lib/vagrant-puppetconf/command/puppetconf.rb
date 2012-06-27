@@ -20,11 +20,11 @@ module VagrantPuppetconf
         @opts = OptionParser.new do |opts|
           opts.banner = "Usage: vagrant [vm-name] puppetconf -k config_key -v config_value"
 
-          opts.on('-k', '--key CONFIG_KEY', "Config key to update.") do |val|
+          opts.on('-k', '--key CONFIG_KEY', I18n.t('vagrant.plugins.puppetconf.command.options.key')) do |val|
             options[:key] = val
           end
 
-          opts.on('-v', '--value CONFIG_VALUE', "Value to set") do |val|
+          opts.on('-v', '--value CONFIG_VALUE', I18n.t('vagrant.plugins.puppetconf.command.options.value')) do |val|
             options[:value] = val
           end
         end

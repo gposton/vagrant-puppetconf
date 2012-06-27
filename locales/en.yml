@@ -2,6 +2,11 @@ en:
   vagrant:
     plugins:
       puppetconf:
+        command:
+          options:
+            key: "Config key to update."
+            value: "Value to set"
+            environment: "ENVIRONMENT"
         middleware:
           create_puppetconf: "Creating puppet.conf"
           install_augeas: "Installing augeas-tools"

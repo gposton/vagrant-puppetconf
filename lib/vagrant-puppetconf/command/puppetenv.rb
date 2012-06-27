@@ -8,7 +8,7 @@ module VagrantPuppetconf
         %w{environment}.each do |opt|
           if options[opt.to_sym].nil? || options[opt.to_sym].empty?
             @ui.error "#{opt.upcase} not set"
-            @ui.info "Usage: vagrant [vm-name] puppetenv ENVIRONMENT"
+            @ui.info "Usage: vagrant [vm-name] puppetenv #{I18n.t('vagrant.plugins.puppetconf.command.options.environment')}"
             exit 1
           end
         end
