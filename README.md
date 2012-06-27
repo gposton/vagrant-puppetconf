@@ -38,6 +38,14 @@ Example Vagrant file:
       config.puppetconf.updates = {'main/environment' => 'test'} # Set environment to test
     end 
 
+Additional commands:
+
+Updates and puppet.conf config on the fly.
+    vagrant puppetconf -k main/environment -v test 
+
+Update puppet.conf environment config on the fly.
+    vagrant puppetenv test 
+
 ## Contributing
 
 1. Fork it
