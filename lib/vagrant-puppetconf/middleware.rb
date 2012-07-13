@@ -29,7 +29,7 @@ module VagrantPuppetconf
 
     def install_augeas
       @env[:ui].warn I18n.t('vagrant.plugins.puppetconf.middleware.install_augeas')
-      @env[:vm].channel.sudo("apt-get install augeas-tools")
+      @env[:vm].channel.sudo("apt-get -y --force-yes install augeas-tools")
     end
   end
 end
