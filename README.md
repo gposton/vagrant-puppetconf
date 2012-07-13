@@ -40,10 +40,12 @@ Example Vagrant file:
 
 Additional commands:
 
-Updates and puppet.conf config on the fly.
+Updates any puppet.conf config on the fly.
+
     vagrant puppetconf -k main/environment -v test 
 
 Update puppet.conf environment config on the fly.
+
     vagrant puppetenv test 
 
 ## Contributing
