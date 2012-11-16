@@ -20,6 +20,10 @@ Or install it yourself as:
 
     $ gem install vagrant-puppetconf
 
+Add the following to your Vagrantfile:
+
+    require 'vagrant-puppetconf'
+
 ## Usage
 
 There are two configuration options:
